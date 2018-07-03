@@ -15,7 +15,13 @@
 #
 def triangle(a, b, c)
   # WRITE THIS CODE
-  if a!=b && b!=c && c!=a 
+  a, b, c = [a, b, c].sort
+  if a<=0 
+   # note: if b or c are 0 or less, a definitely is. Only need to test for one.
+   raise TriangleError, "No side can be zero or less in length."
+  elsif a+b<=c
+   raise TriangleError, "One side cannot be longer than the other two summed."
+  elsif a!=b && b!=c && c!=a 
     return :scalene
   elsif a!=b || b!=c || c!=a
     return :isosceles
@@ -26,4 +32,5 @@ end
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError < StandardError
+  
 end
