@@ -31,6 +31,57 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   # You need to write this method
+
+  # subroutine to score each side
+  def score_side(num, dice)
+    sidescore=0
+    numseed=num  
+    # create a subset of just the rolls of this side
+    set = dice.find_all{ |roll| roll==num }
+
+    # set up 1 to score correctly during the set
+    if num==1
+      num=10
+    end
+
+    # score each set of this number
+    while set.size>2
+      sidescore=num*100
+      set.pop
+      set.pop
+      set.pop
+    end
+
+    # reset the num to be appropriately scored for each individual rolls
+    if num==5
+      num=50
+    elsif num==10
+      num=100
+    else
+      num=0
+    end
+
+    # score the individuals
+    while set.size>0 do
+      sidescore += num
+      set.pop
+    end
+
+    # return the score of this side
+    sidescore
+  end
+  
+  # initializing the score
+  score=0
+
+  # score each side at a time
+  sides = [1, 2, 3, 4, 5, 6]
+  sides.each do |roll| 
+    score += score_side(roll, dice)
+  end
+
+  # return the final score
+  score
 end
 
 class AboutScoringProject < Neo::Koan
