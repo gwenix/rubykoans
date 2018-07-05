@@ -159,7 +159,6 @@ class AboutClasses < Neo::Koan
     fido = Dog7.new("Fido")
 
     fidos_self = fido.get_self
-    puts fidos_self
     assert_equal fido, fidos_self
   end
 
